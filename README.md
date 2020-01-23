@@ -22,3 +22,12 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Contributing
+* Tirth
+* Prasiddha
+* Rohit
+* Ankit
+* Himanshu
+<br>
+Thank you for considering contributing to the Project!.
