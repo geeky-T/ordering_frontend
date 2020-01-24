@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import ManageBooking from "../views/ManageBooking.vue";
+import Booking from "../views/ManageBooking.vue";
 
 Vue.use(VueRouter);
 
@@ -21,9 +21,9 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
-    path: "/manageBooking",
-    name: "manageBooking",
-    component: ManageBooking
+    path: "/booking",
+    name: "booking",
+    component: Booking
   }
 ];
 
