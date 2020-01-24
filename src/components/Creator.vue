@@ -1,92 +1,36 @@
 <template>
-
-    <a-table :columns="columns" :dataSource="data">
+  <a-table :columns="columns" :dataSource="data">
     <a slot="action" href="javascript:;">Create</a>
-    <p slot="expandedRowRender" slot-scope="record" style="margin: 0">{{record.description}}</p>
+    <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
+      {{ record.description }}
+    </p>
   </a-table>
-
-
-
-
-
-    <!-- <div style="border: 1px solid black"    > -->
-    <!-- <table  width="80%" allign="left" >
-    <tr>
-        <th> Name </th>
-        <th> Location </th>
-        <th > rent </th>
-        <th> CreateBooking </th>
-    </tr>
-    <tr v-for="x in hotels" v-bind:key="x.id">
-        <td >{{x.name}}</td>
-        <td >{{x.location}}</td>
-        <td >{{x.rent}}</td>
-        <td><button value='create'>Book</button></td>
-    </tr>
-   
-    </table>
-        
-    </div> -->
-
 </template>
 
 <script>
+import axios from "axios";
 
-const columns= [
-    { title: 'name', dataIndex: 'name', key: 'name' },
-    { title: 'location', dataIndex: 'location', key: 'location' },
-    { title: 'rent', dataIndex: 'rent', key: 'rent' },
-    { title: 'Booking', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
-  ];
-   const data=[
-
-                {
-                    id:1,
-                    name:"townhouse1",
-                    location:"san francisco",
-                    rent:100,
-                    description:"Most of the people like this hotel"
-                },
-                 {
-                    id:2,
-                    name:"townhouse2",
-                    location:"moscow",
-                    rent:200,
-
-                },
-                 {
-                    id:3,
-                    name:"townhouse3",
-                    location:"dubai",
-                    rent:150,
-
-                },
-                 {
-                    id:4,
-                    name:"townhouse4",
-                    location:"london",
-                    rent:120,
-
-                },
-
-               
-            ];
+const columns = [
+  { title: "bookingId", dataIndex: "bookingId", key: "bookingId" },
+  { title: "userId", dataIndex: "userId", key: "userId" },
+  { title: "hotelId", dataIndex: "hotelId", key: "hotelId" },
+  { title: "hoursOccupied", dataIndex: "hoursOccupied", key: "hoursOccupied" }
+  //  { title: 'Booking', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
+];
 
 export default {
-    name:"Creator",
-    data(){
-        return{
-
-           data,
-           columns,
-            
-    }
-
-}}
-
-
+  name: "Creator",
+  data() {
+    return {
+      data: null,
+      columns
+    };
+  },
+  beforeMount() {
+    axios.get("http://localhost:8000/api/search").then(response => {
+      console.log(response);
+      this.data = response.data;
+    });
+  }
+};
 </script>
-
-<style scoped>
-
-</style>
