@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import User from "../views/User.vue";
 import Booking from "../views/ManageBooking.vue";
 
 Vue.use(VueRouter);
@@ -24,6 +25,11 @@ const routes = [
     path: "/booking",
     name: "booking",
     component: Booking
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: User
   }
 ];
 
