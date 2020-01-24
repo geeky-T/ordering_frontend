@@ -1,47 +1,43 @@
 <template>
-  <a-table :columns="columns" :dataSource="dataSource" id="inventory_template">
-    <a slot="name" slot-scope="text" href="javascript:;">{{ text }}</a>
-    <span slot="customTitle">Name</span>
-    <template slot="action" slot-scope="text, record">
+  <a-table :columns="columns" :dataSource="dataSource" id="booking_table">
+    <a slot="name" slot-scope="booking">{{ booking }}</a>
+    <template slot="action" slot-scope="booking">
       <a-popconfirm
-        v-if="dataSource.length"
-        title="Sure to delete?"
-        @confirm="() => onDelete(record.key)"
+        placement="top"
+        okText="Yes"
+        cancelText="No"
+        @confirm="confirmDelete(booking)"
       >
-        <a href="javascript:;">Stop Booking</a>
+        <template slot="title">
+          <p value>{{ getCancellationSummary(booking.key) }}</p>
+        </template>
+        <a-button :loading="loadingObject[booking.key]">Stop Booking</a-button>
       </a-popconfirm>
     </template>
   </a-table>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  methods: {
-    onDelete: function(temp) {
-      console.log(temp);
-      const dataSource = [...this.dataSource];
-      this.dataSource = dataSource.filter(rec => rec.key !== temp);
-    }
-  },
   data() {
     return {
-      count: 2,
+      loadingObject: {},
       columns: [
         {
+          title: "Name",
           dataIndex: "name",
-          key: "name",
-          slots: { title: "customTitle" },
-          scopedSlots: { customRender: "name" }
+          key: "name"
         },
         {
-          title: "Age",
-          dataIndex: "age",
-          key: "age"
+          title: "Location",
+          dataIndex: "location",
+          key: "location"
         },
         {
-          title: "Address",
-          dataIndex: "address",
-          key: "address"
+          title: "Rent",
+          dataIndex: "rent",
+          key: "rent"
         },
         {
           title: "Action",
@@ -70,15 +66,58 @@ export default {
           age: 32,
           address: "Sidney No. 1 Lake Park",
           tags: ["cool", "teacher"]
+        },
+        {
+          key: "4",
+          name: "Joe Black",
+          age: 32,
+          address: "Sidney No. 1 Lake Park",
+          tags: ["cool", "teacher"]
+        },
+        {
+          key: "5",
+          name: "Joe Black",
+          age: 32,
+          address: "Sidney No. 1 Lake Park",
+          tags: ["cool", "teacher"]
+        },
+        {
+          key: "6",
+          name: "Joe Black",
+          age: 32,
+          address: "Sidney No. 1 Lake Park",
+          tags: ["cool", "teacher"]
+        },
+        {
+          key: "7",
+          name: "Joe Black",
+          age: 32,
+          address: "Sidney No. 1 Lake Park",
+          tags: ["cool", "teacher"]
         }
       ]
     };
+  },
+  methods: {
+    getCancellationSummary: function(bookingId) {
+      return bookingId + " cancel?";
+    },
+    check: function(val) {
+      console.log(val);
+      return val;
+    },
+    confirmDelete: function(booking) {
+      this.loadingObject[booking.key] = true;
+      axios.get("https://jsonplaceholder.typicode.com/todos/1").then(() => {
+        const dataSource = [...this.dataSource];
+        this.dataSource = dataSource.filter(rec => rec.key !== booking.key);
+      });
+    }
+  },
+  created() {
+    this.dataSource.forEach(booking =>
+      this.$set(this.loadingObject, booking.key, false)
+    );
   }
 };
-// export default {
-//   name: "HelloWorld",
-//   props: {
-//     msg: String
-//   }
-// };
 </script>

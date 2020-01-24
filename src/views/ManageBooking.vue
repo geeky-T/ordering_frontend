@@ -15,6 +15,11 @@ export default {
   name: "manageBooking",
   components: {
     Inventory
+  },
+  methods: {
+    callback: function() {
+      console.log("hello tab changed");
+    }
   }
 };
 </script>
