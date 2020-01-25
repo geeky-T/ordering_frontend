@@ -1,123 +1,59 @@
 <template>
-  <a-table :columns="columns" :dataSource="dataSource" id="booking_table">
-    <a slot="name" slot-scope="booking">{{ booking }}</a>
-    <template slot="action" slot-scope="booking">
+  <a-table :columns="columns" :dataSource="dataSource" id="inventory_template">
+    <a slot="name" slot-scope="text" href="javascript:;">{{ text }}</a>
+    <span slot="customTitle">Name</span>
+    <template slot="action" slot-scope="text, record">
       <a-popconfirm
-        placement="top"
-        okText="Yes"
-        cancelText="No"
-        @confirm="confirmDelete(booking)"
+        v-if="dataSource.length"
+        title="Sure to delete?"
+        @confirm="() => onDelete(record.key)"
       >
-        <template slot="title">
-          <p value>{{ getCancellationSummary(booking.key) }}</p>
-        </template>
-        <a-button :loading="loadingObject[booking.key]">Stop Booking</a-button>
+        <a href="javascript:;">Stop Booking</a>
       </a-popconfirm>
     </template>
   </a-table>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
+
+const columns = [
+  { title: "bookingId", dataIndex: "bookingId", key: "bookingId" },
+  { title: "name", dataIndex: "name", key: "name" },
+  { title: "amount", dataIndex: "amount", key: "amount" },
+  { title: "location", dataIndex: "location", key: "location" },
+  { title: "rent", dataIndex: "rent", key: "rent" },
+  { title: "hoursOccupied", dataIndex: "hoursOccupied", key: "hoursOccupied" },
+   { title: 'Booking', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
+  
+];
 export default {
-  data() {
-    return {
-      loadingObject: {},
-      columns: [
-        {
-          title: "Name",
-          dataIndex: "name",
-          key: "name"
-        },
-        {
-          title: "Location",
-          dataIndex: "location",
-          key: "location"
-        },
-        {
-          title: "Rent",
-          dataIndex: "rent",
-          key: "rent"
-        },
-        {
-          title: "Action",
-          key: "action",
-          scopedSlots: { customRender: "action" }
-        }
-      ],
-      dataSource: [
-        {
-          key: "1",
-          name: "John Brown",
-          age: 32,
-          address: "New York No. 1 Lake Park",
-          tags: ["nice", "developer"]
-        },
-        {
-          key: "2",
-          name: "Jim Green",
-          age: 42,
-          address: "London No. 1 Lake Park",
-          tags: ["loser"]
-        },
-        {
-          key: "3",
-          name: "Joe Black",
-          age: 32,
-          address: "Sidney No. 1 Lake Park",
-          tags: ["cool", "teacher"]
-        },
-        {
-          key: "4",
-          name: "Joe Black",
-          age: 32,
-          address: "Sidney No. 1 Lake Park",
-          tags: ["cool", "teacher"]
-        },
-        {
-          key: "5",
-          name: "Joe Black",
-          age: 32,
-          address: "Sidney No. 1 Lake Park",
-          tags: ["cool", "teacher"]
-        },
-        {
-          key: "6",
-          name: "Joe Black",
-          age: 32,
-          address: "Sidney No. 1 Lake Park",
-          tags: ["cool", "teacher"]
-        },
-        {
-          key: "7",
-          name: "Joe Black",
-          age: 32,
-          address: "Sidney No. 1 Lake Park",
-          tags: ["cool", "teacher"]
-        }
-      ]
-    };
-  },
+  name:"Inventory",
   methods: {
-    getCancellationSummary: function(bookingId) {
-      return bookingId + " cancel?";
-    },
-    check: function(val) {
-      console.log(val);
-      return val;
-    },
-    confirmDelete: function(booking) {
-      this.loadingObject[booking.key] = true;
-      axios.get("https://jsonplaceholder.typicode.com/todos/1").then(() => {
-        const dataSource = [...this.dataSource];
-        this.dataSource = dataSource.filter(rec => rec.key !== booking.key);
-      });
+    onDelete: function(temp) {
+      console.log(temp);
+      const dataSource = [...this.dataSource];
+      this.dataSource = dataSource.filter(rec => rec.key !== temp);
     }
   },
-  created() {
-    this.dataSource.forEach(booking =>
-      this.$set(this.loadingObject, booking.key, false)
-    );
+  data() {
+    return {
+      dataSource: null,
+      columns
+    };
+  },
+  beforeMount() {
+    axios.get("http://localhost:8002/api/index").then(response => {
+      console.log(response);
+      this.dataSource = response.data;
+    });
   }
+  
 };
+// export default {
+//   name: "HelloWorld",
+//   props: {
+//     msg: String
+//   }
+// };
 </script>
