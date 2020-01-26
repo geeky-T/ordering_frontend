@@ -43,7 +43,7 @@ export default {
     };
   },
   beforeMount() {
-    axios.get("http://localhost:8002/api/index").then(response => {
+    axios.get("http://localhost:8000/api/show").then(response => {
       console.log(response);
       this.dataSource = response.data;
     });

@@ -1,6 +1,6 @@
 <template>
   <a-table :columns="columns" :dataSource="data">
-    <a slot="action" href="javascript:;"  >Create</a>
+    <a slot="action" href="javascript:;"  @click="crt" >Create</a>
    
     <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
       {{ record.description }}
@@ -16,7 +16,7 @@ const columns = [
 
 
     //{ title: "bookingId", dataIndex: "bookingId", key: "bookingId" ,slots:{title:"customTitle"},scopedSlots:{customRender:"name"}},
-  { title: "hotelname", dataIndex: "name", key: "name" },
+  { title: "name", dataIndex: "name", key: "name" },
  // { title: "amount", dataIndex: "amount", key: "amount" },
   { title: "location", dataIndex: "location", key: "location" },
   { title: "rent", dataIndex: "rent", key: "rent" },
@@ -34,10 +34,16 @@ export default {
     };
   },
   beforeMount() {
-    axios.get("http://localhost:8002/api/available").then(response => {
+    axios.get("http://localhost:8000/api/available").then(response => {
       console.log(response);
       this.data = response.data;
     });
+  },
+  methods:{
+    crt: function(){
+        axios
+        .get("http://localhost:8000/api/create")
+    }
   }
 };
 </script>
