@@ -86,10 +86,11 @@ export default {
             .post("http://localhost:8000/api/login", userCred)
             .then(res => {
               this.requestInProcess = false;
-              var email = this.$refs["email"]
+              var email = this.$refs["email"];
               console.log(email)
               localStorage.setItem('email', email.value);
               if (res.status === 200) {
+                ('Post Request Added Created.', 'success');
                 this.$router.push("booking");
               }
             })
