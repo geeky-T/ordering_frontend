@@ -64,6 +64,8 @@
 }
 </style>
 <script>
+  sessionStorage.setItem('email','email');
+  console.log(sessionStorage.getItem('email'));
 import axios from "axios";
 export default {
   data() {

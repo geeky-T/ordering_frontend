@@ -14,7 +14,7 @@
               rules: [{ required: true, message: 'Please enter your name' }]
             }
           ]"
-          placeholder="Name"
+          placeholder="name"
         >
           <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
         </a-input>
@@ -85,7 +85,7 @@ export default {
     };
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: "normal_login" });
+    this.form = this.$form.createForm(this, { name: "normal_register" });
   },
   methods: {
     handleSubmit(e) {
@@ -94,11 +94,11 @@ export default {
         if (!err) {
           this.requestInProcess = true;
           await axios
-            .post("http://localhost:8000/api/login", userCred)
+            .post("http://localhost:8000/api/register", userCred)
             .then(res => {
               this.requestInProcess = false;
               if (res.status === 200) {
-                this.$router.push("booking");
+                this.$router.push("login");
               }
             })
             .catch(err => {
