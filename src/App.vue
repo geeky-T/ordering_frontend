@@ -1,15 +1,23 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/user">Login</router-link> |
-      <router-link to="/booking">Bookings</router-link>
+      <router-link to="/">Home</router-link>
+      <router-link to="/user"> | User</router-link>
+      <router-link v-if="isUserLoggedIn" to="/booking"> | Bookings</router-link>
     </div>
     <router-view />
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      isUserLoggedIn: true
+    };
+  }
+};
+</script>
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

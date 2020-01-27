@@ -47,9 +47,9 @@
           Log in
         </a-button>
         Or
-        <a href="">
+        <router-link to="/register">
           register now!
-        </a>
+        </router-link>
       </a-form-item>
     </a-form>
   </div>
@@ -83,7 +83,13 @@ export default {
           await axios
             .post("http://localhost:8000/api/login", userCred)
             .then(res => {
-              console.log(res);
+              this.requestInProcess = false;
+              if (res.status === 200) {
+                this.$router.push("booking");
+              }
+            })
+            .catch(err => {
+              console.log("err", err);
               this.requestInProcess = false;
             });
         }
