@@ -8,6 +8,7 @@
     >
       <a-form-item>
         <a-input
+                ref="email"
           v-decorator="[
             'email',
             {
@@ -64,8 +65,7 @@
 }
 </style>
 <script>
-  sessionStorage.setItem('email','email');
-  console.log(sessionStorage.getItem('email'));
+
 import axios from "axios";
 export default {
   data() {
@@ -86,6 +86,9 @@ export default {
             .post("http://localhost:8000/api/login", userCred)
             .then(res => {
               this.requestInProcess = false;
+              var email = this.$refs["email"]
+              console.log(email)
+              localStorage.setItem('email', email.value);
               if (res.status === 200) {
                 this.$router.push("booking");
               }
