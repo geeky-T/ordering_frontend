@@ -83,7 +83,8 @@ export default {
         if (!err) {
           this.requestInProcess = true;
           await axios
-            .post("http://localhost:8000/api/login", userCred)
+
+            .post("/api/login", userCred)
             .then(res => {
               this.requestInProcess = false;
               var email = this.$refs["email"];
@@ -114,4 +115,6 @@ export default {
 #components-form-demo-normal-login .login-form-button {
   width: 100%;
 }
+
 </style>
+

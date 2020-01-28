@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import User from "../views/User.vue";
 import Booking from "../views/ManageBooking.vue";
-import register from "../components/RegisterUser.vue";
-
+import User from "../views/User.vue";
+import Register from "../components/RegisterUser.vue";
+import Login from "../components/LoginUser.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -35,8 +35,16 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: register
-  }
+    component: Register
+
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login
+
+  },
+
 ];
 
 const router = new VueRouter({

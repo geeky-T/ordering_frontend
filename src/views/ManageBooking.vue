@@ -14,7 +14,7 @@ import Inventory from "@/components/Inventory.vue";
 import Creator from "@/components/Creator.vue";
 //import    from "@/component/";
 export default {
-  name: "manageBooking",
+  name: "ManageBooking",
   components: {
     Inventory,
     Creator
