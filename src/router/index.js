@@ -2,7 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Booking from "../views/ManageBooking.vue";
-
+import User from "../views/User.vue";
+import Register from "../components/RegisterUser.vue";
+import Login from "../components/LoginUser.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -24,7 +26,25 @@ const routes = [
     path: "/booking",
     name: "booking",
     component: Booking
-  }
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: User
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register
+
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login
+
+  },
+  
 ];
 
 const router = new VueRouter({
