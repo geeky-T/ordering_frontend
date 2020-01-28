@@ -4,10 +4,10 @@
     <!--<a slot="action" href="javascript:;" @click="crt">Create</a> -->
 
   </a-table>
-  <form @submit="crt" method="POST" ref="form">
+  <form @submit="crt" method="POST" ref="form" class="login">
   <!--Enter Email Id<input type="text" id="email" name="email" ref="email">  -->
-  Enter Hotel Id<input type="text" id="hotelId" name="hotelId" ref="hotelId" v-model="hotelId" />  
-
+  Enter Hotel Id  <input type="text" id="hotelId" name="hotelId" ref="hotelId" v-model="hotelId" />  
+    <br><br>
   <input type="submit" value="submit"> 
   </form>
 
@@ -71,8 +71,9 @@ console.log('this hotelid: ', this.hotelId);
               var hotelId = this.$refs["hotelId"];
               console.log(hotelId)
               localStorage.setItem('hotelId', hotelId.value);
-              if (res.status === 200) {
-                ('Post Request Added Created.', 'success');
+              if (res.status === 201) {
+                alert('Post Request Added Created.');
+                window.location.reload();
                 this.$router.push("booking");
               }
             })
@@ -87,3 +88,16 @@ console.log('this hotelid: ', this.hotelId);
 };
 
 </script>
+
+<style scoped>
+.login {
+  position: relative;
+  margin: 30px auto;
+  padding: 20px 20px 20px;
+  width: 310px;
+  background: white;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+</style>

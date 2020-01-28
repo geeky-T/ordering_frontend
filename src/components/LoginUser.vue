@@ -1,5 +1,5 @@
 <template>
-  <div class="loginBox">
+  <div class="sign main">
     <a-form
       id="components-form-demo-normal-login"
       :form="form"
@@ -114,4 +114,21 @@ export default {
 #components-form-demo-normal-login .login-form-button {
   width: 100%;
 }
+
+ .main {
+        background-color: #FFFFFF;
+        width: 400px;
+        height: 400px;
+        margin: 7em auto;
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+    
+    .sign {
+        padding-top: 40px;
+        color: #8C55AA;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        font-size: 23px;
+    }
 </style>

@@ -1,8 +1,10 @@
 <template>
   <div>
+    <input type="button"  value="LOGOUT" @click="logout"/> 
     <a-tabs defaultActiveKey="1" @change="callback" id="tabBox">
-      <a-tab-pane tab="create" key="create" ><Creator/></a-tab-pane>
-      <a-tab-pane tab="manage" key="manage" ><Inventory/></a-tab-pane>
+      <a-tab-pane tab="CreateBooking" key="create" ><Creator/></a-tab-pane>
+      <a-tab-pane tab="ManageBooking" key="manage" ><Inventory/></a-tab-pane>
+      
       
     </a-tabs>
     
@@ -18,6 +20,11 @@ export default {
   components: {
     Inventory,
     Creator
+  },
+  methods:{
+    logout:function(){
+      this.$router.push("login");
+    }
   }
 };
 </script>
