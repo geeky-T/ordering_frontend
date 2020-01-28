@@ -4,9 +4,9 @@
     <!--<a slot="action" href="javascript:;" @click="crt">Create</a> -->
 
   </a-table>
-  <form onsubmit="crt" method="POST">
+  <form @submit="crt" method="POST" ref="form">
   <!--Enter Email Id<input type="text" id="email" name="email" ref="email">  -->
-  Enter Hotel Id<input type="text" id="hotelId" name="hotelId" ref="hotelId"/>  
+  Enter Hotel Id<input type="text" id="hotelId" name="hotelId" ref="hotelId" v-model="hotelId" />  
 
   <input type="submit" value="submit"> 
   </form>
@@ -36,19 +36,18 @@ const columns = [
 
 export default {
   name: "Creator",
-  data() {
-    return {
-      data: null,
+  data: function() {
+      return {
+        data: null,
       columns,
     //  requestInProcess: false,
-      hotelId:0
-     
-    };
+      hotelId: null
+      }
   },
   // beforeCreate() {
   //   this.form = this.$form.createForm(this, { name: "normal_create" });
   // },
-   beforeMount() {
+   mounted() {
      axios.get("api/available").then(response => {
        console.log(response);
        this.data = response.data;
@@ -56,47 +55,35 @@ export default {
      });
    },
   methods: {
-    // 
-    //   //let x=this.data.hotelId;
-    //   var x=document.getElementsById("search").value;
-    //  // {{x}}
-    //   //var y=this.data.userId;
-
-    //   console.log(x);
-     
-    //   axios.post(`api/create/${this.x}`)
-
-      //this.$router.push("user");
 
 crt: function(e) {
 e.preventDefault();
- // this.form.validateFields(async (err, userCred) => {
-     
-    //  if (!err) {
-          //this.requestInProcess = true;
-           axios
-            .post("/api/create",  {
-                            hotelId: document.getElementById("hotelId"),
-                            
-                          })
+console.log('Refs: ', this.$refs);
+console.log('this hotelid: ', this.hotelId);
+    //   this.$refs.form.validateFields(async (err, hotelId) => {
+    //     if (!err) {
+      const { hotelId } = this;
+          this.requestInProcess = true;
+          axios
+            .post("/api/create", { hotelId })
             .then(res => {
-             // this.requestInProcess = false;
-              // var hotelId = this.$refs["hotelId"];
-              // console.log(hotelId)
-            //  localStorage.setItem('hotelId', res.data.hotelId);
-              //if (res.status === 200) {
-                //('Post Request Added Created.', 'success');
+              this.requestInProcess = false;
+              var hotelId = this.$refs["hotelId"];
+              console.log(hotelId)
+              localStorage.setItem('hotelId', hotelId.value);
+              if (res.status === 200) {
+                ('Post Request Added Created.', 'success');
                 this.$router.push("booking");
-                console.log(res);
-              //}
+              }
             })
-           // .catch(err => {
-             // console.log("err", err);
-            //  this.requestInProcess = false;
-               //});
-     //   }
-//});
+            .catch(err => {
+              console.log("err", err);
+              this.requestInProcess = false;
+            });
+    //     }
+    //  });
     }
   }
 };
+
 </script>

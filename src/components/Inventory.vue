@@ -1,6 +1,6 @@
 <template>
   <a-table :columns="columns" :dataSource="data">
-    <a slot="action" href="javascript:;"  @click="crt" >Checkout</a>
+   <!-- <a slot="action" href="javascript:;"  @click="crt" >Checkout</a> -->
    
    
   </a-table>
@@ -12,14 +12,14 @@ import axios from "axios";
 const columns = [
  
 
-
+     { title: "hotelId", dataIndex: "hotelId", key: "hotelId" },
     { title: "bookingId", dataIndex: "bookingId", key: "bookingId" },
   { title: "name", dataIndex: "name", key: "name" },
-  { title: "amount", dataIndex: "amount", key: "amount" },
+ // { title: "amount", dataIndex: "amount", key: "amount" },
   { title: "location", dataIndex: "location", key: "location" },
   { title: "rent", dataIndex: "rent", key: "rent" },
   { title: "hoursOccupied", dataIndex: "hoursOccupied", key: "hoursOccupied" },
-   { title: 'Booking', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
+  // { title: 'Booking', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
   
 ];
 
@@ -31,7 +31,7 @@ export default {
       columns
     };
   },
-  beforeMount() {
+  mounted() {
     axios.get("/api/show").then(response => {
       console.log(response);
       this.data = response.data;

@@ -3,7 +3,7 @@
     <a-form
             id="components-form-demo-normal-login"
             :form="form"
-            class="login-form"
+            class="register-form"
             @submit="handleSubmit"
     >
       <a-form-item>
@@ -54,14 +54,14 @@
         <a-button
                 type="primary"
                 html-type="submit"
-                class="login-form-button"
+                class="register-form-button"
                 :loading="requestInProcess"
         >
           Sign Up
         </a-button>
         Or
         <router-link to="/user">
-          Sign In instead
+          Sign In 
         </router-link>
       </a-form-item>
     </a-form>
@@ -98,7 +98,6 @@
                             .then(res => {
                                 this.requestInProcess = false;
                                 if (res.status === 200) {
-
 
                                     this.$router.push("user");
                                 }
